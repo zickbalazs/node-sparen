@@ -1,0 +1,25 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-md">
+    <a href="#" class="p-2 navbar-brand border-end border-2"><%= pagedata.name %> </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent"><span class="navbar-toggler-icon"></span></button>
+    <div class="navbar-collapse collapse" id="navContent">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a href="/dash" class="nav-link">Dashboard</a></li>
+            <li class="nav-item"><a href="/dash/upload" class="nav-link">Upload</a></li>
+            <li class="nav-item"><a href="/dash/summary" class="nav-link">Summary</a></li>
+            <li class="nav-item"><a href="/dash/charts" class="nav-link">Charts</a></li>
+            <li class="nav-item"><a href="/dash/table" class="nav-link">Table</a></li>
+            <li class="nav-item dropdown navbar-right">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle"></i> Username
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/dash/mod-profile">Modify Profile</a></li>
+                  <li><a class="dropdown-item" href="/dash/change-passwd">Change Password</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/api/users/log-out">Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+        
+    </div>
+</nav>

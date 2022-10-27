@@ -1,0 +1,35 @@
+{
+  "name": "sparen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zickbalazs/node-sparen.git"
+  },
+  "author": "Zick Balázs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zickbalazs/node-sparen/issues"
+  },
+  "homepage": "https://github.com/zickbalazs/node-sparen#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.2",
+    "bootstrap-icons": "^1.9.1",
+    "chart.js": "^3.9.1",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mysql": "^2.18.1",
+    "sha1": "^1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

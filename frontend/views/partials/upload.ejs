@@ -1,0 +1,26 @@
+<main class="my-5 px-3">
+    <h2>Upload a new record</h2>
+    <form class="p-3" method="post" action="/api/spendings/new-spendings">
+        <div class="mb-3">
+            <label class="form-label" for="spendDate">Spending Date</label>
+            <input class="form-control" name="spendDate" type="date" value="<%= new Date().toISOString().split('T')[0] %>" max="<%= new Date().toISOString().split('T')[0] %>">
+        </div>
+        <div class="mb-3">
+            <label for="spendType" class="form-label">Spending Type</label>
+            <select name="spendType" class="form-select">
+                <option selected disabled value="-1">Select a type!</option>
+                <% for( let i = 0; i < selectData.length; i++ ) { %>
+                    <option value="<%= selectData[i].id %>"><%= selectData[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="spendAmount" class="form-label">Spending amount</label>
+            <div class="input-group">
+                <input class="form-control" name="spendAmount" type="number" min="0" value="0" step="100">
+                <label class="input-group-text" for="">Ft</label>
+            </div>
+        </div>
+        <input type="submit" value="Upload" class="btn btn-success">
+    </form>
+</main>
