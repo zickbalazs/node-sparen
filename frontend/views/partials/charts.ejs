@@ -1,0 +1,41 @@
+<%
+    let dates = []
+    spendings.forEach(e=>{
+        dates.push(e.spendDate.split('T')[0].split('-')[0]+"-"+e.spendDate.split('T')[0].split('-')[1]);
+    });
+    dates = Array.from(new Set(dates));
+%>
+
+
+<main class="p-5">
+    <h2>Your Charts</h2>
+
+    <canvas>
+
+    </canvas>
+
+
+
+    <script src="/js/chartjs/chart.min.js"></script>
+    <script>
+        let ctx = document.querySelector('canvas').getContext('2d');
+        
+        let dates = [
+            <% for (let i = 0; i < dates.length; i++) { %>
+                '<%=dates[i]%>',
+            <%}%>
+            ];
+        const chart = new Chart(ctx, {
+            type:'line',
+            data:{
+                labels:dates,
+                datasets:[{
+                    data:[12,12,12]
+                }]
+            }
+                     
+        })
+
+
+    </script>
+</main>

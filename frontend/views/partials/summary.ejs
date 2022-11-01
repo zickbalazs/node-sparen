@@ -1,0 +1,65 @@
+<% 
+    let data = spendings;
+    let categories = [];
+    let colorCodes = [];
+    data.forEach(element => {
+        categories.push(element.name);
+        colorCodes.push(element.colorCode);
+    });
+    categories = Array.from(new Set(categories))
+    colorCodes = Array.from(new Set(colorCodes))
+%> 
+
+<main class="p-5">
+    <h2><%= new Date().toLocaleString('default', {month:'long'}) %> spendings</h2>
+    <canvas id="chart" class="my-5">
+
+    </canvas>
+    <script src="/js/chartjs/chart.min.js"></script>
+    <script>
+        const ctx = document.querySelector('#chart').getContext('2d');
+        //DISGUSTING
+        const dt = [
+            <% for (let i = 0; i < categories.length; i++) {%>
+                "<%=categories[i]%>",
+            <% } %>
+        ];
+
+
+
+        const myChart = new Chart(ctx, {
+             type: 'doughnut',
+             data:{
+                labels: dt,
+                datasets:[{
+                    data:[ 
+                        <% for (let i = 0; i < categories.length; i++) { %>
+                            <% let sum = 0;
+                                let filter = data.filter(e=>e.name==categories[i]);
+                             %>
+                            <% for (let i = 0; i < filter.length; i++) { %>
+                                <% sum+=filter[i].moneyAmount; %>
+                            <%}%>
+                            <%= sum %>, 
+                        <%}%>
+                    ],
+                    backgroundColor: [
+                        <% for (let i = 0; i < colorCodes.length; i++) { %>
+                            '#<%= colorCodes[i] %>',
+                        <% } %>
+                    ]
+                }]
+             },
+             responsive: true,
+             plugins:{
+                title:{
+                    display:true,
+                    text:"This month's summary"
+                }
+             },
+             
+             scales:{x:{stacked:true}, y:{stacked:true}}
+        });
+    </script>
+
+</main>

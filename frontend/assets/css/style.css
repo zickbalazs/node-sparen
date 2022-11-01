@@ -1,3 +1,38 @@
+@font-face {
+    font-family: 'Marker';
+    src: url(/fonts/PermanentMarker-Regular.ttf);
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url(/fonts/RobotoCondensed-Regular.ttf);
+}
+body{
+    font-family:'Roboto' !important;
+}
+h1{
+    font-family:'Marker';
+}
+#link-cards>*>*>*{
+    color:var(--bs-success);
+    text-decoration: none;
+}
+#link-cards>*>*:hover{
+    background: var(--bs-success);
+    transform: scale(110%);
+}
+#link-cards>*>*:hover>*{
+    color:white;
+}
+#link-cards>*>*{
+    transition:all 0.1s;
+}
 .card-img-top>.bi{
     font-size: 6rem;
+}
+.nav-link{
+    transition:all 0.1s;
+}
+canvas{
+    width: 100%;
+    max-height: 600px;
 }

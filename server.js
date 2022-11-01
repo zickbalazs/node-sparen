@@ -10,6 +10,8 @@ app.use(session({
     saveUninitialized:true,
 }))
 
+
+app.use('/fonts', express.static(path.join(__dirname, './frontend/assets/fonts')));
 app.use('/assets/bs-icons', express.static(path.join(__dirname, './node_modules/bootstrap-icons/font')));
 app.use('/css', express.static(path.join(__dirname, './frontend/assets/css')));
 app.use('/css/bs', express.static(path.join(__dirname, './node_modules/bootstrap/dist/css')));

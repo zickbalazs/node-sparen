@@ -1,0 +1,39 @@
+<main class="p-5">
+    <h2>Table</h2>
+    <table class="table table-responsive table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>#.</th>
+                <th>Spending Type</th>
+                <th>Date</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let i = 0; i < spendings.length; i++) { %>
+            <% if (spendings[i].isProfit==0) { %>
+                <tr class="table-danger">
+            <% } %>
+            <% if (spendings[i].isProfit==1) { %>
+                <tr class="table-success">
+            <% } %>
+           
+                <td><%= i+1 %>.</td>
+                <td><i class="bi <%= spendings[i].icon %>"></i> <%= spendings[i].name %> </td>
+                <td><%= spendings[i].spendDate.split('T')[0] %> </td>
+                <% if (spendings[i].isProfit==0) { %>
+                    <td>- <%= spendings[i].moneyAmount %> Ft</td>
+                <% } %>
+                <% if (spendings[i].isProfit==1) { %>
+                    <td>+ <%= spendings[i].moneyAmount %> Ft</td>
+                <% } %>
+            </tr>
+            <% } %>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Total: xx</td>
+            </tr>
+        </tfoot>
+    </table>
+</main>
