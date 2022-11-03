@@ -6,6 +6,9 @@
     font-family: 'Roboto';
     src: url(/fonts/RobotoCondensed-Regular.ttf);
 }
+.navbar-brand{
+    font-family:'Marker' !important;
+}
 body{
     font-family:'Roboto' !important;
 }
@@ -35,4 +38,7 @@ h1{
 canvas{
     width: 100%;
     max-height: 600px;
+}
+header{
+    background: linear-gradient(var(--bs-success), 75%,var(--bs-dark));
 }

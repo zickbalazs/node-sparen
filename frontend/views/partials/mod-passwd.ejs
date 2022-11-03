@@ -1,0 +1,19 @@
+<main class="p-5">
+    <h2 class="mb-5 text-center">Modify your password</h2>
+    <form class="col-lg-4 col-md-9 bg-light p-3 border border-dark rounded m-auto" action="/api/users/mod-passwd" method="post">
+        <div class="mb-3">
+            <label for="old" class="form-label">Old password:</label>
+            <input type="password" name="old" class="form-control">
+        </div>
+        <hr class="my-3">
+        <div class="mb-3">
+            <label for="new1" class="form-label">New password:</label>
+            <input type="password" name="new1" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="new2" class="form-label">New password again:</label>
+            <input type="password" name="new2" class="form-control">
+        </div>
+        <input type="submit" class="btn btn-success" value="Change password">
+    </form>
+</main>

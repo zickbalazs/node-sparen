@@ -17,6 +17,7 @@ app.use('/css', express.static(path.join(__dirname, './frontend/assets/css')));
 app.use('/css/bs', express.static(path.join(__dirname, './node_modules/bootstrap/dist/css')));
 app.use('/js/bs', express.static(path.join(__dirname, './node_modules/bootstrap/dist/js')));
 app.use('/js/chartjs', express.static(path.join(__dirname, './node_modules/chart.js/dist/')));
+app.use('/js/fullcalendar', express.static(path.join(__dirname, './node_modules/fullcalendar/')));
 app.use('/api/users', usersController);
 app.use('/api/spendings', spendingsController);
 app.use('/dash', dashController);

@@ -1,11 +1,46 @@
 let router = require('express').Router();
 let pool = require('mysql').createPool(require('../configs').pool);
-const { response } = require('express');
 const sha1 = require('sha1');
 
 router.get('/log-out', (req,res)=>{
     req.session.userIsLoggedIn = false;
     res.redirect('/');
+})
+router.post('/mod-passwd', (req,res)=>{
+    let passwdinfo = req.body;
+    if (passwdinfo.new1!=passwdinfo.new2) res.redirect('/dash');
+    pool.query('select * from users where id=?', [req.session.userID], (err,data)=>{
+        if (err) res.status(500).send(err.message);
+        else{
+            if (sha1(passwdinfo.old) == data[0].passwd){
+                pool.query('update users set passwd=? where id=?', [sha1(passwdinfo.new1), req.session.userID], (err)=>{
+                    if (err) res.status(500).send(err.message);
+                    else res.redirect('/dash');
+                });
+            }
+            else res.redirect('/dash');
+        }
+    });
+})
+router.post('/mod-profile', (req,res)=>{
+    let updateinfo = req.body;
+    if (updateinfo.mail==""||updateinfo.username=="") res.redirect('/dash');
+    pool.query('select * from users where uname=? or email=?', [updateinfo.username, updateinfo.mail], (err,data)=>{
+        if (data.length>0) res.redirect('/dash');
+        else {
+            pool.query('update users set mail=?, uname=? where uid=?', [updateinfo.mail, updateinfo.username, req.session.userID], (err)=>{
+                if (err) res.status(500).send(err.message);
+                else {
+                    SetLoginInfo(req.session, {
+                        id: req.session.userID,
+                        uname: updateinfo.username,
+                        email: updateinfo.mail
+                    });
+                    res.redirect('/dash')
+                }
+            })
+        }
+    })
 })
 router.post('/register', (req,res)=>{
     let registerInfo = {
@@ -59,10 +94,6 @@ router.post('/login', (req,res)=>{
         } )
     }
 })
-
-
-
-
 
 function SetLoginInfo(sesh, user) {
     sesh.userID = user.id;

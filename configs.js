@@ -6,7 +6,8 @@ module.exports = {
         password:process.env.DBPASS,
         connectionLimit:process.env.DBLIMIT,
         user:process.env.DBUSER,
-        database:process.env.DBNAME
+        database:process.env.DBNAME,
+        dateStrings: true
     },
     pageData:{
         name:process.env.PAGENAME,

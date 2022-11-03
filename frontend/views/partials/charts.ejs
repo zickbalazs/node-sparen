@@ -1,9 +1,26 @@
 <%
-    let dates = []
-    spendings.forEach(e=>{
-        dates.push(e.spendDate.split('T')[0].split('-')[0]+"-"+e.spendDate.split('T')[0].split('-')[1]);
+    let dates = [];
+    let profits = [];
+    spendings.forEach(element=>{
+        dates.push(element.spendDate.split('T')[0].split('-')[0]+"-"+element.spendDate.split('T')[0].split('-')[1]);
     });
     dates = Array.from(new Set(dates));
+    for (let i = 0; i < dates.length; i++) {
+        for (let g = 0; g < dates.length; g++) {
+            if (dates[i]<dates[g]){
+                let temp = dates[i];
+                dates[i] = dates[g];
+                dates[g] = temp;
+            }
+        }
+    }
+    dates.forEach(element => {
+        let i = 0;
+        spendings.filter(e=>e.spendDate.split('T')[0].split('-')[0]+"-"+e.spendDate.split('T')[0].split('-')[1]==element).forEach(g=>{
+            i += g.isProfit == 1 ? g.moneyAmount : g.moneyAmount * -1;
+        })
+        profits.push(i);
+    });
 %>
 
 
@@ -30,7 +47,15 @@
             data:{
                 labels:dates,
                 datasets:[{
-                    data:[12,12,12]
+                    data:[
+                        <% for(let i = 0; i < profits.length; i++) { %>
+                            <%= profits[i] %>,
+                        <% } %>
+                    ],
+                    label:'Total Ft',
+                    backgroundColor:["#198051"],
+                    borderColor:['#198051'],
+                    tension:dates.length/10
                 }]
             }
                      

@@ -1,0 +1,36 @@
+<main class="p-5">
+    <link rel="stylesheet" href="/js/fullcalendar/main.min.css">
+    <h2>Calendar</h2>
+    <div class="calendar"></div>
+    <script src="/js/fullcalendar/main.min.js"></script>
+    <script>
+        let cDiv = document.querySelector('.calendar');
+        let calendar = new FullCalendar.Calendar(cDiv, {
+            headerToolbar:{
+                start:'title dayGridMonth,dayGridWeek,dayGridDay,listWeek',
+                center:'',
+                end: 'today prevYear,prev,next,nextYear'
+            },
+            events:[
+                <% for (let i = 0; i < spendings.length; i++) { %>
+                    {
+                        id: <%= spendings[i].id %>,
+                        groupId: '<%= spendings[i].name %>',
+                        title: '<%= `${spendings[i].name} | ${spendings[i].isProfit==1? "+" : "-"}${new Intl.NumberFormat('hu-HU', {style:'currency', currency:'HUF'}).format(spendings[i].moneyAmount)} `%>',
+                        start: '<%=  spendings[i].spendDate %>',
+                        backgroundColor: '#<%= spendings[i].colorCode %>'
+                    },
+                <% } %>
+                //{
+                //id:'ASD',
+                //groupId: 'Spendage',
+                //title:'ASD',
+                //start:'2022-09-01'
+                //}
+            ],
+            initialView:'dayGridMonth',
+            nowIndicator:true
+        })
+        calendar.render();
+    </script>
+</main>

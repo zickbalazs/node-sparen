@@ -4,11 +4,11 @@ let pool = require('mysql').createPool(require('../configs').pool);
 
 router.get('/', (req,res)=>{
     if (req.session.loggedin) res.redirect('/dash');
-    else ejs.renderFile('./frontend/views/pages/login/login.ejs', ({pagedata:cfg}), (err, data) => { if (err) res.status(500).send(err.message); else res.status(200).send(data); });
+    else ejs.renderFile('./frontend/views/pages/login/login.ejs', ({pagedata:cfg, pagetitle:'$paren - Login'}), (err, data) => { if (err) res.status(500).send(err.message); else res.status(200).send(data); });
 });
 router.get('/register', (req,res)=>{
     if (req.session.loggedin) res.redirect('/dash');
-    else ejs.renderFile('./frontend/views/pages/login/register.ejs', ({pagedata:cfg}), (err,data)=>{if (err) res.status(500).send(err.message); else res.status(200).send(data) });
+    else ejs.renderFile('./frontend/views/pages/login/register.ejs', ({pagedata:cfg, pagetitle:'$paren - Registration'}), (err,data)=>{if (err) res.status(500).send(err.message); else res.status(200).send(data) });
 });
 
 module.exports = router;
