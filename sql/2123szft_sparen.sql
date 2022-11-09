@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 --
 create database if not exists 2123szft_sparen default character set utf8 collate utf8_hungarian_ci;
 -- --------------------------------------------------------
-
+using 2123szft_sparen;
 --
 -- Table structure for table `spendings`
 --
