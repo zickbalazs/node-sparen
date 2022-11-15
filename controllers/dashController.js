@@ -5,13 +5,13 @@ const axios = require('axios');
 
 router.get('/', (req,res)=>{
     if (req.session.userIsLoggedIn)
-        ejs.renderFile('./frontend/views/pages/dash/dash.ejs', ({pagedata:cfg, pagetitle:'$paren', username:req.session.userName}), (err, data) => { if (err) res.status(500).send(err.message); else res.status(200).send(data); });
+        ejs.renderFile('./frontend/views/pages/dash/dash.ejs', ({pagedata:cfg, pagetitle:'$paren', username:req.session.userName, message: req.session.message}), (err, data) => { if (err) res.status(500).send(err.message); else res.status(200).send(data); });
     else res.redirect('/');
 })
 router.get('/upload', (req,res)=>{
     if (req.session.userIsLoggedIn){
         pool.query('select * from spendingtype', (err, data)=>{
-            ejs.renderFile('./frontend/views/pages/dash/upload.ejs', ({pagedata:cfg, pagetitle:'$paren - Upload', selectData:data, username:req.session.userName}), (err,data)=>{ if (err) res.status(500).send(err.message); else res.status(200).send(data); });
+            ejs.renderFile('./frontend/views/pages/dash/upload.ejs', ({pagedata:cfg, pagetitle:'$paren - Upload', selectData:data, username:req.session.userName, message:req.session.message}), (err,data)=>{ if (err) res.status(500).send(err.message); else res.status(200).send(data); });
         })
     }
     else res.redirect('/');
@@ -46,12 +46,12 @@ router.get('/table', async (req,res)=>{
 })
 router.get('/mod-profile', (req,res)=>{
     if (req.session.userIsLoggedIn)
-        ejs.renderFile('./frontend/views/pages/dash/mod-profile.ejs', ({pagedata:cfg, pagetitle:'$paren - Profile settings', username:req.session.userName}), (err,data)=>{ if (err) res.status(500).send(err.message); else res.status(200).send(data); });
+        ejs.renderFile('./frontend/views/pages/dash/mod-profile.ejs', ({pagedata:cfg, pagetitle:'$paren - Profile settings', username:req.session.userName, user:{name:req.session.userName, email:req.session.userEmail}, message:req.session.message}), (err,data)=>{ if (err) res.status(500).send(err.message); else res.status(200).send(data); });
     else res.redirect('/');
 })
 router.get('/change-passwd', (req,res)=>{
     if (req.session.userIsLoggedIn)
-        ejs.renderFile('./frontend/views/pages/dash/mod-passwd.ejs', ({pagedata:cfg, pagetitle:'$paren - Password Change', username:req.session.userName}), (err,data)=>{ if (err) res.status(500).send(err.message); else res.status(200).send(data); });
+        ejs.renderFile('./frontend/views/pages/dash/mod-passwd.ejs', ({pagedata:cfg, pagetitle:'$paren - Password Change', username:req.session.userName, message:req.session.message}), (err,data)=>{ if (err) res.status(500).send(err.message); else res.status(200).send(data); });
     else res.redirect('/');
 })
 module.exports = router;

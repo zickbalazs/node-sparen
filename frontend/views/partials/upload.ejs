@@ -1,7 +1,8 @@
-<main class="my-5 px-3">
-    <div class="col-lg-6 offset-lg-3">
-        <h2>Upload a new record</h2>
-        <form class="p-3" method="post" action="/api/spendings/new-spendings">
+<main class="d-flex flex-column">
+    <div class="h-100 my-auto">
+        <%- include('../partials/message') %>
+        <form class="col-lg-4 col-md-9 bg-light p-3 border border-dark rounded m-auto" method="post" action="/api/spendings/new-spendings">
+            <h2 class="mt-2 mb-3">Upload a new transaction</h2>
             <div class="mb-3">
                 <label class="form-label" for="spendDate">Spending Date</label>
                 <input class="form-control" name="spendDate" type="date" value="<%= new Date().toISOString().split('T')[0] %>" max="<%= new Date().toISOString().split('T')[0] %>">

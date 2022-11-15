@@ -1,10 +1,30 @@
 <%
     let dates = [];
     let profits = [];
+    let categories = [];
+    let colors = [];
+    let amounts = [];
     spendings.forEach(element=>{
         dates.push(element.spendDate.split('T')[0].split('-')[0]+"-"+element.spendDate.split('T')[0].split('-')[1]);
+        categories.push(element.name);
     });
+    categories = Array.from(new Set(categories));
+    categories.forEach(e=>{amounts.push(0)});
+    console.log(categories.toString());
     dates = Array.from(new Set(dates));
+
+    for (let i = 0; i < categories.length; i++) {
+        for (let g = 0; g < spendings.length; g++) {
+            if (spendings[g].name==categories[i]){
+                colors[i] = spendings[g].colorCode;
+                amounts[i] += spendings[g].moneyAmount;
+            }
+        }
+    }
+
+
+
+
     for (let i = 0; i < dates.length; i++) {
         for (let g = 0; g < dates.length; g++) {
             if (dates[i]<dates[g]){
@@ -27,21 +47,48 @@
 <main class="p-5">
     <h2>Your Charts</h2>
 
-    <canvas>
-
-    </canvas>
-
-
+    <canvas class="mb-5"></canvas>
+    <hr>
+    <canvas class="mb-3"></canvas>
 
     <script src="/js/chartjs/chart.min.js"></script>
     <script>
-        let ctx = document.querySelector('canvas').getContext('2d');
-        
+        let ctx = document.querySelectorAll('canvas')[0].getContext('2d');
+        let ctx2 = document.querySelectorAll('canvas')[1].getContext('2d');
+
         let dates = [
             <% for (let i = 0; i < dates.length; i++) { %>
                 '<%=dates[i]%>',
             <%}%>
             ];
+        const chart2 = new Chart(ctx2, {
+            type:'polarArea',
+            options:{
+                plugins:{
+                    title:{
+                        display:true,
+                        text:'Total spendings Area Chart',
+                        position:'top',
+                        padding:{
+                            top:10,
+                            bottom:30
+                        }
+                    }
+                }
+            },
+            data:{
+                labels:[ 
+                    <% for (let i = 0; i < categories.length; i++) {%>
+                        '<%=categories[i]%>',
+                        
+                    <%}%>
+                 ],
+                datasets:[{
+                    data: [<% for (let i = 0; i < amounts.length; i++){ %><%=amounts[i]%>,<%}%>],
+                    backgroundColor: [<%for (let i = 0; i < amounts.length; i++) {%> '#<%=colors[i]%>', <%}%>]
+                }]
+            }
+        })
         const chart = new Chart(ctx, {
             type:'line',
             data:{
@@ -52,15 +99,12 @@
                             <%= profits[i] %>,
                         <% } %>
                     ],
-                    label:'Total Ft',
+                    label:'Total Balance',
                     backgroundColor:["#198051"],
                     borderColor:['#198051'],
                     tension:dates.length/10
                 }]
             }
-                     
-        })
-
-
+        });
     </script>
 </main>

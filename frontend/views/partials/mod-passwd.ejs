@@ -1,6 +1,9 @@
-<main class="p-5">
-    <h2 class="mb-5 text-center">Modify your password</h2>
+<main class="d-flex flex-column">
+    <% if (message!=undefined) { %>
+        <%- include('../partials/message') %>
+    <% } %>
     <form class="col-lg-4 col-md-9 bg-light p-3 border border-dark rounded m-auto" action="/api/users/mod-passwd" method="post">
+        <h2 class="mb-5 text-center">Modify your password</h2>
         <div class="mb-3">
             <label for="old" class="form-label">Old password:</label>
             <input type="password" name="old" class="form-control">

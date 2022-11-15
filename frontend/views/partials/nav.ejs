@@ -9,18 +9,18 @@
             <li class="nav-item"><a href="/dash/charts" class="nav-link">Charts</a></li>
             <li class="nav-item"><a href="/dash/calendar" class="nav-link">Calendar</a></li>
             <li class="nav-item"><a href="/dash/table" class="nav-link">Table</a></li>
-            <li class="nav-item dropdown navbar-right">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-circle"></i> <%= username %>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="/dash/mod-profile">Modify Profile</a></li>
-                  <li><a class="dropdown-item" href="/dash/change-passwd">Change Password</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="/api/users/log-out">Log out</a></li>
-                </ul>
-            </li>
+            
         </ul>
-        
+        <a class="nav-item dropdown navbar-right me-2" >
+            <a class="nav-link dropdown-toggle mx-3 text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle"></i> <span><%= username %></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/dash/mod-profile">Modify Profile</a></li>
+              <li><a class="dropdown-item" href="/dash/change-passwd">Change Password</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/api/users/log-out">Log out</a></li>
+            </ul>
+        </a>
     </div>
 </nav>

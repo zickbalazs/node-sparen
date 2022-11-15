@@ -1,4 +1,7 @@
 <main class="p-5">
+    <% if (message!=undefined) { %>
+        <%- include('../partials/message') %>
+    <% } %>
     <h2>Register</h2>
     <form action="/api/users/register" class="p-3 my-5 col-md-6 border rounded border-dark" method="post">
         <div class="mb-3">

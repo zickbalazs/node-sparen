@@ -12,6 +12,23 @@
 body{
     font-family:'Roboto' !important;
 }
+.alert{
+    display: flex;
+    flex-flow:row;
+    justify-content: space-between;
+}
+.container-fluid{
+    display:flex;
+    flex-flow:column;
+    min-height: 100vh;
+}
+main{
+    flex:1 1 auto;
+}
+#profile>i{
+    color:white !important;
+}
+
 h1{
     font-family:'Marker';
 }
