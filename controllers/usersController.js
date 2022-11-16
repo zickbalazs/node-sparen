@@ -11,35 +11,37 @@ router.get('/log-out', (req,res)=>{
 router.post('/mod-passwd', (req,res)=>{
     let passwdinfo = req.body;
     if (passwdinfo.new1!=passwdinfo.new2) {
-        msg.SetMessage(req, 'alert', "Passwords don't message!");
+        msg.SetMessage(req, 'warning', "Passwords don't message!");
         res.redirect('/dash');
     }
-    pool.query('select * from users where id=?', [req.session.userID], (err,data)=>{
-        if (err) res.status(500).send(err.message);
-        else{
-            if (sha1(passwdinfo.old) == data[0].passwd){
-                pool.query('update users set passwd=? where id=?', [sha1(passwdinfo.new1), req.session.userID], (err)=>{
-                    if (err) res.status(500).send(err.message);
-                    else {
-                        msg.SetMessage(req, 'success', 'Successful password modification');
-                        res.redirect('/dash');
-                    }
-                });
+    else{
+        pool.query('select * from users where id=?', [req.session.userID], (err,data)=>{
+            if (err) res.status(500).send(err.message);
+            else{
+                if (sha1(passwdinfo.old) == data[0].passwd){
+                    pool.query('update users set passwd=? where id=?', [sha1(passwdinfo.new1), req.session.userID], (err)=>{
+                        if (err) res.status(500).send(err.message);
+                        else {
+                            msg.SetMessage(req, 'success', 'Successful password modification');
+                            res.redirect('/dash');
+                        }
+                    });
+                }
+                else {
+                    msg.SetMessage(req, 'warning', 'Old password is incorrect!');
+                    res.redirect('/dash');
+                }
             }
-            else {
-                msg.SetMessage(req, 'alert', 'Old password is incorrect!');
-                res.redirect('/dash');
-            }
-        }
-    });
+        });
+    }
 })
 router.post('/mod-profile', (req,res)=>{
     let updateinfo = req.body;
     console.log(updateinfo);
     if (updateinfo.email==""||updateinfo.name=="") res.redirect('/dash');
     pool.query('select * from users where uname=? or email=?', [updateinfo.name, updateinfo.email], (err,data)=>{
-        if (data.length>0) {
-            msg.SetMessage(req, 'alert', 'This email is already used!');
+        if (data.length>0&& req.session.userEmail != updateinfo.email) {
+            msg.SetMessage(req, 'warning', 'This email is already used!');
             res.redirect('/dash');
         }
         else {
@@ -67,7 +69,7 @@ router.post('/register', (req,res)=>{
         passwdIsEqual: req.body.passwd==req.body.passwd2
     }
     if (registerInfo.email==''||registerInfo.name==''||registerInfo.passwd==''||registerInfo==''){
-        msg.SetMessage(req, 'alert', 'Empty fields!');
+        msg.SetMessage(req, 'warning', 'Empty fields!');
         res.redirect('/register');
     }
     else{
@@ -84,13 +86,13 @@ router.post('/register', (req,res)=>{
                     })
                 }
                 else {
-                    msg.SetMessage(req, 'alert', '')
+                    msg.SetMessage(req, 'warning', '')
                     res.redirect('/')
                 }
 
             }
             else{
-                msg.SetMessage(req, 'alert', 'There is a registration already with this e-mail address!');
+                msg.SetMessage(req, 'warning', 'There is a registration already with this e-mail address!');
                 res.redirect('/register');
             }
         })

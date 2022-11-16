@@ -1,3 +1,9 @@
-<div class="mx-5 alert alert-<%=message.type%>">
-    <span><%-message.text%></span><span>[<%-message.time%>]</span>
+<div class="mx-5 alert alert-<%=message.type%> alert-dismissible fade show">
+    <span><%-message.text%></span><div>
+        
+        <span>[<%-message.time%>]</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    
+    
 </div>

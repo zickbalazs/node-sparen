@@ -10,41 +10,49 @@
 
 <main class="p-md-5 table-responsive">
     <h2 class="mb-5">Table</h2>
-    <table class="table  table-striped table-hover table-bordered">
-        <thead>
-            <tr>
-                <th>#.</th>
-                <th>Spending Type</th>
-                <th>Date</th>
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% for(let i = 0; i < spendings.length; i++) { %>
-            <% if (spendings[i].isProfit==0) { %>
-                <tr class="table-danger">
-            <% } %>
-            <% if (spendings[i].isProfit==1) { %>
-                <tr class="table-success">
-            <% } %>
-           
-                <td><%= i+1 %>.</td>
-                <td><i class="bi <%= spendings[i].icon %>"></i> <%= spendings[i].name %> </td>
-                <td><%= spendings[i].spendDate.split('T')[0] %> </td>
+    <% if (spendings.length==0) { %>
+        <div class="text-center my-auto">
+            <h3 class="text-danger">No data yet</h3>
+            <h4 class="text-muted">But you can <a href="/dash/upload">upload</a> some!</h4>
+        </div>
+    <% } %>
+    <% if (spendings.length>0) { %>
+        <table class="table  table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>#.</th>
+                    <th>Spending Type</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < spendings.length; i++) { %>
                 <% if (spendings[i].isProfit==0) { %>
-                    <td>- <%= new Intl.NumberFormat('hu-HU', {style:'currency', currency:'HUF'}).format(spendings[i].moneyAmount) %></td>
+                    <tr class="table-danger">
                 <% } %>
                 <% if (spendings[i].isProfit==1) { %>
-                    <td>+ <%= new Intl.NumberFormat('hu-HU', {style:'currency', currency:'HUF'}).format(spendings[i].moneyAmount) %></td>
+                    <tr class="table-success">
                 <% } %>
-            </tr>
-            <% } %>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="3">Your current balance: </td>
-                <td class="text-center <%=htmlClass%>"><%= new Intl.NumberFormat('hu-HU', {style:'currency', currency:'HUF'}).format(balance) %></td>
-            </tr>
-        </tfoot>
-    </table>
+               
+                    <td><%= i+1 %>.</td>
+                    <td><i class="bi <%= spendings[i].icon %>"></i> <%= spendings[i].name %> </td>
+                    <td><%= spendings[i].spendDate.split('T')[0] %> </td>
+                    <% if (spendings[i].isProfit==0) { %>
+                        <td>- <%= new Intl.NumberFormat('hu-HU', {style:'currency', currency:'HUF'}).format(spendings[i].moneyAmount) %></td>
+                    <% } %>
+                    <% if (spendings[i].isProfit==1) { %>
+                        <td>+ <%= new Intl.NumberFormat('hu-HU', {style:'currency', currency:'HUF'}).format(spendings[i].moneyAmount) %></td>
+                    <% } %>
+                </tr>
+                <% } %>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Your current balance: </td>
+                    <td class="text-center <%=htmlClass%>"><%= new Intl.NumberFormat('hu-HU', {style:'currency', currency:'HUF'}).format(balance) %></td>
+                </tr>
+            </tfoot>
+        </table>
+    <% } %>
 </main>

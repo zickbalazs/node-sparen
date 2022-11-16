@@ -10,33 +10,40 @@
     colorCodes = Array.from(new Set(colorCodes))
 %> 
 
-<main class="p-5">
+<main class="p-5 d-flex flex-column">
     <h2><%= new Date().toLocaleString('en-US', {month:'long'}) %>'s spendings</h2>
-    <canvas id="chart" class="my-5">
-
-    </canvas>
-
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>#.</th>
-                <th>Type</th>
-                <th>Date</th>
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% for( let i = 0; i < data.length; i++ ) { %>
-                <tr class="<%=data[i].isProfit==1?'table-success':'table-danger'%>">
-                    <td><%=i%></td>
-                    <td><i class="bi <%= data[i].icon %>"></i> <%=data[i].name%></td>
-                    <td><%=data[i].spendDate.split('T')[0]%></td>
-                    <td><%=(data[i].isProfit==1?"+ ":"- ") + new Intl.NumberFormat('hu-HU', {style:'currency', currency:'HUF'}).format(data[i].moneyAmount)%></td>
+    <% if (spendings.length>0) { %>
+        <canvas id="chart" class="my-5"></canvas>
+        <hr>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>#.</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Amount</th>
                 </tr>
-            <% } %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <% for( let i = 0; i < data.length; i++ ) { %>
+                    <tr class="<%=data[i].isProfit==1?'table-success':'table-danger'%>">
+                        <td><%=i%></td>
+                        <td><i class="bi <%= data[i].icon %>"></i> <%=data[i].name%></td>
+                        <td><%=data[i].spendDate.split('T')[0]%></td>
+                        <td><%=(data[i].isProfit==1?"+ ":"- ") + new Intl.NumberFormat('hu-HU', {style:'currency', currency:'HUF'}).format(data[i].moneyAmount)%></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    <% } %>
+    <% if (spendings.length==0) { %>
+        <div class="text-center my-auto">
+            <h3 class="text-danger">No data yet</h3>
+            <h4 class="text-muted">But you can <a href="/dash/upload">upload</a> some!</h4>
+        </div>
+    <% } %>
 
+    
     <script src="/js/chartjs/chart.min.js"></script>
     <script>
         const ctx = document.querySelector('#chart').getContext('2d');
