@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 01, 2022 at 02:42 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Gép: 127.0.0.1
+-- Létrehozás ideje: 2022. Nov 16. 13:19
+-- Kiszolgáló verziója: 10.4.6-MariaDB
+-- PHP verzió: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,13 +19,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `2123szft_sparen`
+-- Adatbázis: `2123szft_sparen`
 --
-create database if not exists 2123szft_sparen default character set utf8 collate utf8_hungarian_ci;
+CREATE DATABASE IF NOT EXISTS `2123szft_sparen` DEFAULT CHARACTER SET utf8 COLLATE utf8_hungarian_ci;
+USE `2123szft_sparen`;
+
 -- --------------------------------------------------------
-using 2123szft_sparen;
+
 --
--- Table structure for table `spendings`
+-- Tábla szerkezet ehhez a táblához `spendings`
 --
 
 CREATE TABLE `spendings` (
@@ -36,7 +39,7 @@ CREATE TABLE `spendings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
--- Dumping data for table `spendings`
+-- A tábla adatainak kiíratása `spendings`
 --
 
 INSERT INTO `spendings` (`id`, `uid`, `type`, `moneyAmount`, `spendDate`) VALUES
@@ -49,12 +52,13 @@ INSERT INTO `spendings` (`id`, `uid`, `type`, `moneyAmount`, `spendDate`) VALUES
 (7, 1, 4, 16800, '2022-11-01'),
 (8, 1, 1, 12000, '2022-11-01'),
 (11, 1, 4, 4000, '2022-11-01'),
-(12, 1, 3, 1600, '2022-11-01');
+(12, 1, 3, 1600, '2022-11-01'),
+(13, 1, 9, 60000, '2022-09-29');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `spendingtype`
+-- Tábla szerkezet ehhez a táblához `spendingtype`
 --
 
 CREATE TABLE `spendingtype` (
@@ -66,7 +70,7 @@ CREATE TABLE `spendingtype` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
--- Dumping data for table `spendingtype`
+-- A tábla adatainak kiíratása `spendingtype`
 --
 
 INSERT INTO `spendingtype` (`id`, `name`, `icon`, `colorCode`, `isProfit`) VALUES
@@ -86,7 +90,7 @@ INSERT INTO `spendingtype` (`id`, `name`, `icon`, `colorCode`, `isProfit`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Tábla szerkezet ehhez a táblához `users`
 --
 
 CREATE TABLE `users` (
@@ -99,7 +103,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
--- Dumping data for table `users`
+-- A tábla adatainak kiíratása `users`
 --
 
 INSERT INTO `users` (`id`, `uname`, `email`, `passwd`, `regDate`, `isBanned`) VALUES
@@ -107,11 +111,11 @@ INSERT INTO `users` (`id`, `uname`, `email`, `passwd`, `regDate`, `isBanned`) VA
 (2, 'zick', 'zick@zick.com', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2022-10-27', 0);
 
 --
--- Indexes for dumped tables
+-- Indexek a kiírt táblákhoz
 --
 
 --
--- Indexes for table `spendings`
+-- A tábla indexei `spendings`
 --
 ALTER TABLE `spendings`
   ADD PRIMARY KEY (`id`),
@@ -119,45 +123,45 @@ ALTER TABLE `spendings`
   ADD KEY `type` (`type`);
 
 --
--- Indexes for table `spendingtype`
+-- A tábla indexei `spendingtype`
 --
 ALTER TABLE `spendingtype`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- A tábla indexei `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- A kiírt táblák AUTO_INCREMENT értéke
 --
 
 --
--- AUTO_INCREMENT for table `spendings`
+-- AUTO_INCREMENT a táblához `spendings`
 --
 ALTER TABLE `spendings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `spendingtype`
+-- AUTO_INCREMENT a táblához `spendingtype`
 --
 ALTER TABLE `spendingtype`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Constraints for dumped tables
+-- Megkötések a kiírt táblákhoz
 --
 
 --
--- Constraints for table `spendings`
+-- Megkötések a táblához `spendings`
 --
 ALTER TABLE `spendings`
   ADD CONSTRAINT `spendings_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`),

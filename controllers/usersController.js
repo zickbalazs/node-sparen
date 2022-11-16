@@ -5,6 +5,7 @@ const sha1 = require('sha1');
 
 router.get('/log-out', (req,res)=>{
     req.session.userIsLoggedIn = false;
+    msg.SetMessage(req, 'success', 'Successfully logged out.')
     res.redirect('/');
 })
 router.post('/mod-passwd', (req,res)=>{
